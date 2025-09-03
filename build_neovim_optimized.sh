@@ -2,6 +2,7 @@
 set -e
 
 NEOVIM_DIR="./neovim"
+BUILD_DIR="./build"
 
 echo "Cleaning previous build..."
 cd "$NEOVIM_DIR"
@@ -22,9 +23,18 @@ make CMAKE_BUILD_TYPE=Release \
   ENABLE_JEMALLOC=ON \
   -j$(nproc)
 
-# Package into .deb
-echo "✅ Generating Debian package with CPack..."
-cd build
+NEOVIM_BIN="$BUILD_DIR/bin/nvim"
+
+if [ -f "$NEOVIM_BIN" ]; then
+  echo "Stripping debug symbols..."
+  strip --strip-unneeded "$NEOVIM_BIN"
+else
+  echo "❌ Error: Built binary not found at $NEOVIM_BIN"
+  exit 1
+fi
+
+echo "Generating Debian package with CPack..."
+cd "$BUILD_DIR"
 cpack -G DEB
 echo "✅ Build and package complete. .deb file is inside build/"
 sudo dpkg -i nvim-linux-x86_64.deb
