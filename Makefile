@@ -2,7 +2,7 @@
 # Makefile for Neovim build and packaging
 
 NEOVIM_DIR := ./neovim
-BUILD_DIR := ./build
+BUILD_DIR := ./neovim/build
 NEOVIM_BIN := $(BUILD_DIR)/bin/nvim
 
 CC := cc
