@@ -20,7 +20,7 @@ clean:
 	@echo "Cleaning build artifacts..."
 	cd $(NEOVIM_DIR) && make clean || true
 
-distclean:
+distclean: clean
 	@echo "Removing all build artifacts and config (distclean)..."
 	cd $(NEOVIM_DIR) && make distclean || true
 	rm -rf $(BUILD_DIR)
