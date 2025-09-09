@@ -5,7 +5,8 @@ NEOVIM_DIR := ./neovim
 BUILD_DIR := ./neovim/build
 NEOVIM_BIN := $(BUILD_DIR)/bin/nvim
 
-CC := cc
+CC := /usr/bin/clang
+CXX := /usr/bin/clang++
 CFLAGS := -O3 -march=native -flto -fomit-frame-pointer -DNDEBUG
 CXXFLAGS := -O3 -march=native -flto -fomit-frame-pointer -DNDEBUG
 LDFLAGS := -flto -fuse-ld=mold
@@ -28,6 +29,8 @@ distclean: clean
 build_release:
 	@echo "Building Neovim Release build with optimizations..."
 	cd $(NEOVIM_DIR) && \
+	CC="$(CC)" \
+	CXX="$(CXX)" \
 	CMAKE_BUILD_TYPE=Release \
 	CMAKE_C_FLAGS="$(CFLAGS)" \
 	CMAKE_CXX_FLAGS="$(CXXFLAGS)" \
@@ -39,6 +42,8 @@ build_release:
 build_debug:
 	@echo "Building Neovim Debug build (RelWithDebInfo)..."
 	cd $(NEOVIM_DIR) && \
+	CC="$(CC)" \
+	CXX="$(CXX)" \
 	CMAKE_BUILD_TYPE=RelWithDebInfo \
 	CMAKE_C_FLAGS="" \
 	CMAKE_CXX_FLAGS="" \
