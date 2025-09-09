@@ -7,8 +7,8 @@ NEOVIM_BIN := $(BUILD_DIR)/bin/nvim
 
 CC := /usr/bin/clang
 CXX := /usr/bin/clang++
-CFLAGS := -Ofast -march=native -flto=full -funroll-loops -ffast-math -fomit-frame-pointer -fschedule-insns2 -DNDEBUG
-CXXFLAGS := -Ofast -march=native -flto=full -funroll-loops -ffast-math -fomit-frame-pointer -fschedule-insns2 -DNDEBUG
+CFLAGS := -O3 -march=native -flto=full -fomit-frame-pointer -fschedule-insns2 -DNDEBUG
+CXXFLAGS := -O3 -march=native -flto=full -fomit-frame-pointer -fschedule-insns2 -DNDEBUG
 LDFLAGS := -flto=full -fuse-ld=mold
 ENABLE_JEMALLOC := ON
 
