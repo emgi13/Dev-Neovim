@@ -5,8 +5,8 @@ NEOVIM_DIR := ./neovim
 BUILD_DIR := ./neovim/build
 NEOVIM_BIN := $(BUILD_DIR)/bin/nvim
 
-CC := /usr/bin/clang
-CXX := /usr/bin/clang++
+CC := /usr/bin/gcc
+CXX := /usr/bin/g++
 CFLAGS := -O3 -march=native -flto=full -fomit-frame-pointer -fschedule-insns2 -DNDEBUG
 CXXFLAGS := -O3 -march=native -flto=full -fomit-frame-pointer -fschedule-insns2 -DNDEBUG
 LDFLAGS := -flto=full -fuse-ld=mold
