@@ -7,9 +7,9 @@ NEOVIM_BIN := $(BUILD_DIR)/bin/nvim
 
 CC := /usr/bin/gcc
 CXX := /usr/bin/g++
-CFLAGS := -O3 -march=native -flto=full -fomit-frame-pointer -fschedule-insns2 -DNDEBUG
-CXXFLAGS := -O3 -march=native -flto=full -fomit-frame-pointer -fschedule-insns2 -DNDEBUG
-LDFLAGS := -flto=full -fuse-ld=mold
+CFLAGS := -O3 -march=native -flto -fomit-frame-pointer -fschedule-insns2 -DNDEBUG
+CXXFLAGS := -O3 -march=native -flto -fomit-frame-pointer -fschedule-insns2 -DNDEBUG
+LDFLAGS := -flto -fuse-ld=mold
 ENABLE_JEMALLOC := ON
 
 .PHONY: all clean distclean build_release build_debug strip package install uninstall
@@ -36,6 +36,8 @@ build_release:
 	CMAKE_CXX_FLAGS="$(CXXFLAGS)" \
 	CMAKE_EXE_LINKER_FLAGS="$(LDFLAGS)" \
 	ENABLE_JEMALLOC=$(ENABLE_JEMALLOC) \
+	CMAKE_EXTRA_FLAGS="-DCMAKE_C_FLAGS=\"$(CFLAGS)\" -DCMAKE_CXX_FLAGS=\"$(CXXFLAGS)\" -DCMAKE_EXE_LINKER_FLAGS=\"$(LDFLAGS)\" -DENABLE_JEMALLOC=$(ENABLE_JEMALLOC)" \
+	DEPS_CMAKE_FLAGS="-DCMAKE_C_FLAGS=\"$(CFLAGS)\" -DCMAKE_CXX_FLAGS=\"$(CXXFLAGS)\" -DCMAKE_EXE_LINKER_FLAGS=\"$(LDFLAGS)\" -DENABLE_JEMALLOC=$(ENABLE_JEMALLOC)" \
 	make -j$(shell nproc)
 	@$(MAKE) strip
 
