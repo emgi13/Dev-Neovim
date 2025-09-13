@@ -15,7 +15,7 @@ ENABLE_JEMALLOC := ON
 .PHONY: all clean distclean build_release build_debug strip package install uninstall
 
 # Default target: clean + release build + package + install
-all: clean build_release package install
+all: build_release package install
 
 clean:
 	@echo "Cleaning build artifacts..."
