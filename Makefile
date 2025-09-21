@@ -16,16 +16,19 @@ CXX ?= /usr/bin/g++
 # -flto: Enable Link-Time Optimization for better whole-program optimization.
 # -fomit-frame-pointer: Frees up a register, can make debugging slightly harder.
 # -fschedule-insns2: Use a more aggressive instruction scheduler (GCC-specific).
+# -ffast-math: Allow aggressive floating-point optimizations.
 # -DNDEBUG: Disable assertions and other debug code.
-OPTIMIZATION_FLAGS := -O3 -march=native -flto -fomit-frame-pointer -fschedule-insns2 -DNDEBUG
+OPTIMIZATION_FLAGS := -O3 -march=native -flto -fomit-frame-pointer -fschedule-insns2 -ffast-math -DNDEBUG
 
 # Linker flags.
 # -fuse-ld=mold: Use the fast `mold` linker if available.
-LDFLAGS := -flto -fuse-ld=mold
+# -Wl,--gc-sections: Remove unused code sections.
+LDFLAGS := -flto -fuse-ld=mold -Wl,--gc-sections
 
+# --- CMake Definitions ---
 # Combine all CMake definitions for clarity. These are passed to both the main
 # build and the dependency builds.
-CMAKE_DEFS := \
+CMAKE_DEFS_RELEASE := \
     -DCMAKE_C_FLAGS="$(OPTIMIZATION_FLAGS)" \
     -DCMAKE_CXX_FLAGS="$(OPTIMIZATION_FLAGS)" \
     -DCMAKE_EXE_LINKER_FLAGS="$(LDFLAGS)" \
@@ -52,8 +55,8 @@ build_release:
 	CC="$(CC)" \
 	CXX="$(CXX)" \
 	CMAKE_BUILD_TYPE=Release \
-	CMAKE_EXTRA_FLAGS='$(CMAKE_DEFS)' \
-	DEPS_CMAKE_FLAGS='$(CMAKE_DEFS)' \
+	CMAKE_EXTRA_FLAGS='$(CMAKE_DEFS_RELEASE)' \
+	DEPS_CMAKE_FLAGS='$(CMAKE_DEFS_RELEASE)' \
 	make -j$(shell nproc)
 	@$(MAKE) strip
 
