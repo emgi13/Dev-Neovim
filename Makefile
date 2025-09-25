@@ -18,7 +18,7 @@ CXX ?= /usr/bin/g++
 # -fschedule-insns2: Use a more aggressive instruction scheduler (GCC-specific).
 # -ffast-math: Allow aggressive floating-point optimizations.
 # -DNDEBUG: Disable assertions and other debug code.
-OPTIMIZATION_FLAGS := -O3 -march=native -flto -fomit-frame-pointer -fschedule-insns2 -ffast-math -DNDEBUG
+OPTIMIZATION_FLAGS := -O3 -march=native -flto -fomit-frame-pointer -fschedule-insns2 -DNDEBUG
 
 # Linker flags.
 # -fuse-ld=mold: Use the fast `mold` linker if available.
