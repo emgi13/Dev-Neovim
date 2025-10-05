@@ -6,6 +6,8 @@ NEOVIM_BIN := $(BUILD_DIR)/bin/nvim
 # Assuming this is the default package name, adjust if needed
 DEB_PACKAGE := $(BUILD_DIR)/nvim-linux-x86_64.deb
 
+ENABLE_JEMALLOC := ON
+
 # Use `gcc` and `g++` by default, but allow overriding from the environment
 CC ?= /usr/bin/gcc
 CXX ?= /usr/bin/g++
