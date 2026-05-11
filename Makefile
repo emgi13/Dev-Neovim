@@ -4,7 +4,8 @@ NEOVIM_DIR := ./neovim
 BUILD_DIR := ./neovim/build
 NEOVIM_BIN := $(BUILD_DIR)/bin/nvim
 # Assuming this is the default package name, adjust if needed
-DEB_PACKAGE := $(BUILD_DIR)/nvim-linux-x86_64.deb
+# Find whatever .deb file cpack just generated
+DEB_PACKAGE = $(wildcard $(BUILD_DIR)/*.deb)
 
 ENABLE_JEMALLOC := ON
 
